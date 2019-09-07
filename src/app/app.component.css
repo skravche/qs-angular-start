@@ -1,0 +1,9 @@
+h1 {
+  margin-bottom: 1rem;
+}
+
+.container {
+  padding: 3rem;
+  width: 800px;
+  margin: 0 auto;
+}
