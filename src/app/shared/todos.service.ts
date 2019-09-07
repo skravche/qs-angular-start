@@ -1,4 +1,7 @@
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 
 export interface Todo {
   id: number;
@@ -9,16 +12,23 @@ export interface Todo {
 
 @Injectable({ providedIn: "root" })
 export class TodosService {
-  public todos: Todo[] = [
-    { id: 1, title: "Tickets1", completed: false, date: new Date() },
-    { id: 2, title: "Tickets2", completed: false, date: new Date() },
-    { id: 3, title: "Tickets3", completed: false, date: new Date() },
-    { id: 4, title: "Tickets4", completed: true, date: new Date() },
-    { id: 5, title: "Tickets5", completed: false, date: new Date() }
-  ];
+  public todos: Todo[] = [];
+
+  constructor(private http: HttpClient) {}
+  fetchTodos(): Observable<Todo[]> {
+    return this.http
+      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .pipe(tap(todos => (this.todos = todos)));
+  }
+
   onToggle(id: number) {
-    console.log(id);
     const idx = this.todos.findIndex(t => t.id === id);
     this.todos[idx].completed = !this.todos[idx].completed;
+  }
+  removeTodo(id: number) {
+    this.todos = this.todos.filter(t => t.id !== id);
+  }
+  addTodo(todo: Todo) {
+    this.todos.push(todo);
   }
 }
