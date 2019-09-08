@@ -1,1 +1,10 @@
-<p>todo-form works!</p>
+<div>
+  <input
+    type="text"
+    placeholder="Add some task"
+    [(ngModel)]="title"
+    (keyup.enter)="addTodo()"
+  />
+
+  <button (click)="addTodo()">Just Do It!</button>
+</div>
