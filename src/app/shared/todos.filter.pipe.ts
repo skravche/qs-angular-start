@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: "todosFilter"
 })
 export class TodosFilterPipe implements PipeTransform {
-  transform(todos: Todo[any], search: string = ""): Todo[] {
+  transform(todos: any[any], search: string = ""): any[] {
     if (!search.trim()) {
       return todos;
     }
